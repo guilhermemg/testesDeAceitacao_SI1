@@ -1,0 +1,94 @@
+# User Story 02 - Fazendo amigos
+
+#    Usuario envia solicitação de amizade para outro usuário
+# cadastrado e se esse último aceitar, ambos podem ver a
+# lista de links do outro.
+#    Os links do usuario amigo aparecerão logo após os links
+# do usuario com que ele acabou de fazer amizade.
+
+
+# limpar os dados do sistema
+zerarSistema
+
+# entradas válidas
+
+criarUsuario login="mark" senha="m@rk" nome="Mark Zuckerberg" email="mark@facebook.com"
+criarUsuario login="steve" senha="5t3v3" nome="Steven Paul Jobs" email="jobs@apple.com"
+criarUsuario login="bill" senha="severino" nome="William Henry Gates III" email="billzin@msn.com"
+
+# o método 'abrirSessao' retorna o ID da sessão
+sessaoMark=abrirSessao login="mark" senha="m@rk"
+sessaoSteve=abrirSessao login="steve" senha="5t3v3"
+sessaoSteve=abrirSessao login="bill" senha="severino"
+
+# verifica lista de links
+expect {} getListaLinks idSessao=${sessaoMark} 
+expect {} getListaLinks idSessao=${sessaoSteve}
+expect {} getListaLinks idSessao=${sessaoBill}
+
+# Mark adiciona links para musicas
+link1ID=adicinarLinkParaMusica idSessao=${sessaoMark} link="http://letras.mus.br/david-guetta/#mais-acessadas/1944260" dataCriacao="30/12/2013"
+link2ID=adicinarLinkParaMusica idSessao=${sessaoMark} link="https://letras.mus.br/david-guetta/#mais-acessadas/2150148" dataCriacao="31/12/2013"
+
+# Steve adiciona links para musicas
+link3ID=adicionarLinkParaMusica idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="01/01/2014"
+link4ID=adicionarLinkParaMusica idSessao=${sessaoSteve} link="https://www.youtube.com/watch?v=JRfuAukYTKg" dataCriacao="31/12/2015"
+link5ID=adicionarLinkParaMusica idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=PVzljDmoPVs" dataCriacao="04/02/2016"
+
+expect {${link1ID},${link2ID}} idSessao=${sessaoMark} getListaLinks
+expect {${link3ID},${link4ID},${link5ID}} getListaLinks idSessao=${sessaoSteve} 
+
+# Bill envia solicitação de amizade para Steve
+solicitacao1ID=enviarSolicitacaoAmizade idSessao=${sessaoBill} login="steve" 
+
+# Steve aceita solicitação de amizade de Bill
+aceitarSolicitacaoAmizade idSessao=${sessaoSteve} idSolicitacao=${solicitacao1ID}
+
+# Bill agora pode ver os links da lista de Steve
+# e Steve pode ver os links da lista de Bill
+expect {${link3ID},${link4ID},${link5ID}} getListaLinks idSessao=${sessaoBill} 
+expect {${link3ID},${link4ID},${link5ID}} getListaLinks idSessao=${sessaoSteve}
+
+# Steve envia solicitação de amizade para Mark
+solicitacao2ID=enviarSolicitacaoAmizade idSessao=${sessaoSteve} login="mark" 
+
+# Mark aceita a solicitação de amizade de Steve
+aceitarSolicitacaoAmizade idSessao=${sessaoMark} idSolicitacao=${solicitacao2ID}
+
+# Mark e Steve agora podem ver os links da lista do outro, já que eles possuem uma relação de direta
+expect {${link1ID},${link2ID},${link3ID},${link4ID},${link5ID}} getListaLinks idSessao=${sessaoMark} 
+expect {${link3ID},${link4ID},${link5ID},${link1ID},${link2ID}} getListaLinks idSessao=${sessaoSteve} 
+expect {${link3ID},${link4ID},${link5ID}} getListaLinks idSessao=${sessaoBill} 
+
+#Encerrar a sessao de Bill
+encerrarSessao login="bill"
+
+# entradas inválidas
+
+expectError "Sessão inválida" enviarSolicitacaoAmizade idSessao= login="steve"
+expectError "Sessão inválida" enviarSolicitacaoAmizade idSessao="" login="steve"
+expectError "Login inválido" enviarSolicitacaoAmizade idSessao=${sessaoSteve} login=
+expectError "Login inválido" enviarSolicitacaoAmizade idSessao=${sessaoSteve} login=""
+
+expectError "Sessão inválida" aceitarSolicitacaoAmizade idSessao= idSolicitacao=${solicitacao1ID}
+expectError "Sessão inválida" aceitarSolicitacaoAmizade idSessao="" idSolicitacao=${solicitacao1ID}
+expectError "Sessão inexistente" aceitarSolicitacaoAmizade idSessao=${sessaoBill} idSolicitacao=${solicitacao1ID}
+expectError "Solicitação inválida" aceitarSolicitacaoAmizade idSessao=${sessaoSteve} idSolicitacao=
+expectError "Solicitação inválida" aceitarSolicitacaoAmizade idSessao=${sessaoSteve} idSolicitacao=""
+expectError "Solicitação inexistente" aceitarSolicitacaoAmizade idSessao=${sessaoSteve} idSolicitacao=${solicitacao1ID}
+expectError "Solicitação inexistente" aceitarSolicitacaoAmizade idSessao=${sessaoMark} idSolicitacao=${solicitacao2ID}
+
+expectError "Link inválido" adicionarLinkParaMusica idSessao=${sessaoSteve} link= dataCriacao="99/99/9999"
+expectError "Link inválido" adicionarLinkParaMusica idSessao=${sessaoSteve} link="" dataCriacao="00/00/0000"
+expectError "Link inválido" adicionarLinkParaMusica idSessao=${sessaoSteve} link="www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="01/01/2014"
+expectError "Link inválido" adicionarLinkParaMusica idSessao=${sessaoSteve} link="ftp://www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="01/01/2014"
+
+#Encerrar a sessao de Mark
+encerrarSessao login="mark"
+
+#Encerrar a sessao de Steve
+encerrarSessao login="steve"
+
+encerrarSistema
+quit
+
