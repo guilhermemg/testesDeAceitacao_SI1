@@ -1,11 +1,10 @@
-# User Story 02 - Fazendo amigos
+# User Story 02 - Fazendo amigos e visualizando fonte de sons
 
 #    Usuario envia solicitação de amizade para outro usuário
-# cadastrado e se esse último aceitar, ambos podem ver a
-# lista de links do outro.
-#    Os links do usuario amigo aparecerão logo após os links
-# do usuario com que ele acabou de fazer amizade.
-
+# cadastrado e se esse último aceitar, ele entra na fonte de sons
+# do primeiro. Assim como o primeiro entra na fonte de sons do segundo.
+#    A ordem em que os usuarios aparecem na fonte de sons deve obedecer a
+# ordem de chegada como em uma fila comum.
 
 # limpar os dados do sistema
 zerarSistema
@@ -19,24 +18,26 @@ criarUsuario login="bill" senha="severino" nome="William Henry Gates III" email=
 # o método 'abrirSessao' retorna o ID da sessão
 sessaoMark=abrirSessao login="mark" senha="m@rk"
 sessaoSteve=abrirSessao login="steve" senha="5t3v3"
-sessaoSteve=abrirSessao login="bill" senha="severino"
+sessaoBill=abrirSessao login="bill" senha="severino"
 
-# verifica lista de links
-expect {} getListaLinks idSessao=${sessaoMark} 
-expect {} getListaLinks idSessao=${sessaoSteve}
-expect {} getListaLinks idSessao=${sessaoBill}
+# verifica perfil musical
+expect {} getPerfilMusical idSessao=${sessaoMark} 
+expect {} getPerfilMusical idSessao=${sessaoSteve}
+expect {} getPerfilMusical idSessao=${sessaoBill}
 
-# Mark adiciona links para musicas
-link1ID=adicinarLinkParaMusica idSessao=${sessaoMark} link="http://letras.mus.br/david-guetta/#mais-acessadas/1944260" dataCriacao="30/12/2013"
-link2ID=adicinarLinkParaMusica idSessao=${sessaoMark} link="https://letras.mus.br/david-guetta/#mais-acessadas/2150148" dataCriacao="31/12/2013"
+# Mark posta sons
+som1ID=postarSom idSessao=${sessaoMark} link="http://letras.mus.br/david-guetta/#mais-acessadas/1944260" dataCriacao="30/12/2013"
+som2ID=postarSom idSessao=${sessaoMark} link="https://letras.mus.br/david-guetta/#mais-acessadas/2150148" dataCriacao="31/12/2013"
 
-# Steve adiciona links para musicas
-link3ID=adicionarLinkParaMusica idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="01/01/2014"
-link4ID=adicionarLinkParaMusica idSessao=${sessaoSteve} link="https://www.youtube.com/watch?v=JRfuAukYTKg" dataCriacao="31/12/2015"
-link5ID=adicionarLinkParaMusica idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=PVzljDmoPVs" dataCriacao="04/02/2016"
+# Steve posta sons
+som3ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="01/01/2014"
+som4ID=postarSom idSessao=${sessaoSteve} link="https://www.youtube.com/watch?v=JRfuAukYTKg" dataCriacao="31/12/2015"
+som5ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=PVzljDmoPVs" dataCriacao="04/02/2016"
 
-expect {${link1ID},${link2ID}} idSessao=${sessaoMark} getListaLinks
-expect {${link3ID},${link4ID},${link5ID}} getListaLinks idSessao=${sessaoSteve} 
+expect {${som1ID},${som2ID}} idSessao=${sessaoMark} getPerfilMusical
+expect {${som3ID},${som4ID},${som5ID}} getPerfilMusical idSessao=${sessaoSteve} 
+
+# -----------------------------------------------------------------------------------------------------------------------------------------------
 
 # Bill envia solicitação de amizade para Steve
 solicitacao1ID=enviarSolicitacaoAmizade idSessao=${sessaoBill} login="steve" 
@@ -44,10 +45,16 @@ solicitacao1ID=enviarSolicitacaoAmizade idSessao=${sessaoBill} login="steve"
 # Steve aceita solicitação de amizade de Bill
 aceitarSolicitacaoAmizade idSessao=${sessaoSteve} idSolicitacao=${solicitacao1ID}
 
-# Bill agora pode ver os links da lista de Steve
-# e Steve pode ver os links da lista de Bill
-expect {${link3ID},${link4ID},${link5ID}} getListaLinks idSessao=${sessaoBill} 
-expect {${link3ID},${link4ID},${link5ID}} getListaLinks idSessao=${sessaoSteve}
+# Os perfis de ambos estao inalterados
+expect {} getPerfilMusical idSessao=${sessaoBill} 
+expect {${som3ID},${som4ID},${som5ID}} getPerfilMusical idSessao=${sessaoSteve}
+
+# Bill agora esta na fonte de sons de Steve
+# e Steve esta na fonte de sons de Bill
+expect {${sessaoSteve}} getFonteDeSons idSessao=${sessaoBill}
+expect {${sessaoBill}} getFonteDeSons idSessao=${sessaoSteve}
+
+# -----------------------------------------------------------------------------------------------------------------------------------------------
 
 # Steve envia solicitação de amizade para Mark
 solicitacao2ID=enviarSolicitacaoAmizade idSessao=${sessaoSteve} login="mark" 
@@ -55,13 +62,18 @@ solicitacao2ID=enviarSolicitacaoAmizade idSessao=${sessaoSteve} login="mark"
 # Mark aceita a solicitação de amizade de Steve
 aceitarSolicitacaoAmizade idSessao=${sessaoMark} idSolicitacao=${solicitacao2ID}
 
-# Mark e Steve agora podem ver os links da lista do outro, já que eles possuem uma relação de direta
-expect {${link1ID},${link2ID},${link3ID},${link4ID},${link5ID}} getListaLinks idSessao=${sessaoMark} 
-expect {${link3ID},${link4ID},${link5ID},${link1ID},${link2ID}} getListaLinks idSessao=${sessaoSteve} 
-expect {${link3ID},${link4ID},${link5ID}} getListaLinks idSessao=${sessaoBill} 
+# os perfis musicais de mark e steve ficam inalterados
+expect {${som1ID},${som2ID}} getPerfilMusical idSessao=${sessaoMark} 
+expect {${som3ID},${som4ID},${som5ID}} getPerfilMusical idSessao=${sessaoSteve}
+
+# Mark e Steve estao na fonte de sons um do outro
+expect {${sessaoSteve}} getFonteDeSons idSessao=${sessaoMark} 
+expect {${sessaoBill},${sessaoMark}} getFonteDeSons idSessao=${sessaoSteve} 
 
 #Encerrar a sessao de Bill
 encerrarSessao login="bill"
+
+# -----------------------------------------------------------------------------------------------------------------------------------------------
 
 # entradas inválidas
 
@@ -78,10 +90,10 @@ expectError "Solicitação inválida" aceitarSolicitacaoAmizade idSessao=${sessa
 expectError "Solicitação inexistente" aceitarSolicitacaoAmizade idSessao=${sessaoSteve} idSolicitacao=${solicitacao1ID}
 expectError "Solicitação inexistente" aceitarSolicitacaoAmizade idSessao=${sessaoMark} idSolicitacao=${solicitacao2ID}
 
-expectError "Link inválido" adicionarLinkParaMusica idSessao=${sessaoSteve} link= dataCriacao="99/99/9999"
-expectError "Link inválido" adicionarLinkParaMusica idSessao=${sessaoSteve} link="" dataCriacao="00/00/0000"
-expectError "Link inválido" adicionarLinkParaMusica idSessao=${sessaoSteve} link="www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="01/01/2014"
-expectError "Link inválido" adicionarLinkParaMusica idSessao=${sessaoSteve} link="ftp://www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="01/01/2014"
+expectError "Som inválido" postarSom idSessao=${sessaoSteve} link= dataCriacao="99/99/9999"
+expectError "Som inválido" postarSom idSessao=${sessaoSteve} link="" dataCriacao="00/00/0000"
+expectError "Som inválido" postarSom idSessao=${sessaoSteve} link="www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="01/01/2014"
+expectError "Som inválido" postarSom idSessao=${sessaoSteve} link="ftp://www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="01/01/2014"
 
 #Encerrar a sessao de Mark
 encerrarSessao login="mark"
