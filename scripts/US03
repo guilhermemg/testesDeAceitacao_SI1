@@ -19,6 +19,11 @@ sessaoMark=abrirSessao login="mark" senha="m@rk"
 sessaoSteve=abrirSessao login="steve" senha="5t3v3"
 sessaoBill=abrirSessao login="bill" senha="severino"
 
+# o metodo getIDUsuario retorna o id do usuario no sistema
+IDSteve=getIDUsuario idSessao=${sessaoSteve}
+IDMark=getIDUsuario idSessao=${sessaoMark}
+IDBill=getIDUsuario idSessao=${sessaoBill}
+
 # verifica perfil musical
 expect {} getPerfilMusical idSessao=${sessaoMark} 
 expect {} getPerfilMusical idSessao=${sessaoSteve}
@@ -46,8 +51,8 @@ aceitarSolicitacaoAmizade idSessao=${sessaoSteve} idSolicitacao=${solicitacao1ID
 
 # Bill agora esta na fonte de sons de Steve
 # e Steve esta na fonte de sons de Bill
-expect {${sessaoSteve}} getFonteDeSons idSessao=${sessaoBill}
-expect {${sessaoBill}} getFonteDeSons idSessao=${sessaoSteve}
+expect {${IDSteve}} getFontesDeSons idSessao=${sessaoBill}
+expect {${IDBill}} getFontesDeSons idSessao=${sessaoSteve}
 
 # Os perfis de ambos estao inalterados
 expect {} getPerfilMusical idSessao=${sessaoBill} 
@@ -68,8 +73,8 @@ solicitacao2ID=enviarSolicitacaoAmizade idSessao=${sessaoSteve} login="mark"
 aceitarSolicitacaoAmizade idSessao=${sessaoMark} idSolicitacao=${solicitacao2ID}
 
 # Mark e Steve estao na fonte de sons um do outro
-expect {${sessaoSteve}} getFonteDeSons idSessao=${sessaoMark} 
-expect {${sessaoMark}} getFonteDeSons idSessao=${sessaoSteve} 
+expect {${IDSteve}} getFontesDeSons idSessao=${sessaoMark} 
+expect {${IDBill},${IDMark}} getFontesDeSons idSessao=${sessaoSteve} 
 
 # os perfis musicais de mark e steve ficam inalterados
 expect {${som1ID},${som2ID}} getPerfilMusical idSessao=${sessaoMark} 
