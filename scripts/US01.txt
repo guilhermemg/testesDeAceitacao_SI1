@@ -33,17 +33,17 @@ expect {} getPerfilMusical idSessao=${sessaoSteve}
 som1ID=postarSom idSessao=${sessaoMark} link="http://letras.mus.br/david-guetta/#mais-acessadas/1944260" dataCriacao="23/06/2013"
 som2ID=postarSom idSessao=${sessaoMark} link="http://letras.mus.br/david-guetta/#mais-acessadas/1944260" dataCriacao="24/06/2013"
 
-expect "23/06/2013" getAtributoSom idSom=$som1ID atributo="dataCriacao"
-expect "24/06/2013" getAtributoSom idSom=$som2ID atributo="dataCriacao"
+expect "23/06/2013" getAtributoSom idSom=${som1ID} atributo="dataCriacao"
+expect "24/06/2013" getAtributoSom idSom=${som2ID} atributo="dataCriacao"
 
 # Steve posta sons
 som3ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="25/12/2013"
 som4ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=JRfuAukYTKg" dataCriacao="23/06/2014"
 som5ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=PVzljDmoPVs" dataCriacao="10/04/2015"
 
-expect "25/12/2016" getAtributoSom idSom=$som3ID atributo="dataCriacao"
-expect "23/06/2014" getAtributoSom idSom=$som4ID atributo="dataCriacao"
-expect "10/04/2013" getAtributoSom idSom=$som5ID atributo="dataCriacao"
+expect "25/12/2013" getAtributoSom idSom=${som3ID} atributo="dataCriacao"
+expect "23/06/2014" getAtributoSom idSom=${som4ID} atributo="dataCriacao"
+expect "10/04/2015" getAtributoSom idSom=${som5ID} atributo="dataCriacao"
 
 expect {${som1ID},${som2ID}} getPerfilMusical idSessao=${sessaoMark} 
 expect {${som3ID},${som4ID},${som5ID}} getPerfilMusical idSessao=${sessaoSteve}
