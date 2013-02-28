@@ -86,11 +86,11 @@ expectError "Atributo inválido" getAtributoUsuario login="mark" atributo=
 expectError "Atributo inválido" getAtributoUsuario login="mark" atributo=""
 expectError "Atributo inexistente" getAtributoUsuario login="mark" atributo="xpto"
 
-expectError "Som inexistente" getAtributoSom idSom= atributo="xpto"
+expectError "Som inválido" getAtributoSom idSom= atributo="xpto"
 expectError "Som inválido" getAtributoSom idSom="" atributo="xpto"
-expectError "Atributo inválido" getAtributoSom idSom=$idSom1 atributo=
-expectError "Atributo inválido" getAtributoSom idSom=$idSom1 atributo=""
-expectError "Atributo inexistente" getAtributoSom idSom=$idSom1 atributo="xpto"
+expectError "Atributo inválido" getAtributoSom idSom=${idSom1} atributo=
+expectError "Atributo inválido" getAtributoSom idSom=${idSom1} atributo=""
+expectError "Atributo inexistente" getAtributoSom idSom=${idSom1} atributo="xpto"
 
 #Encerrar a sessao de Mark
 encerrarSessao login="mark"
