@@ -77,7 +77,7 @@ expectError "Data de Criação inválida" postarSom idSessao=${sessaoSteve} link
 expectError "Data de Criação inválida" postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="30/04/15"
 
 # perfil musical de Steve continua intacto
-expect {${som3ID},${som4ID},${som5ID}} getPerfilMusical idSessao=${sessaoSteve} 
+expect {${som5ID},${som4ID},${som3ID}} getPerfilMusical idSessao=${sessaoSteve}
 
 expectError "Login inválido" getAtributoUsuario login= atributo="nome"
 expectError "Login inválido" getAtributoUsuario login="" atributo="nome"

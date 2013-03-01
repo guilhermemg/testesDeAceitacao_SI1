@@ -56,8 +56,8 @@ som6ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=PV
 # Sergey posta sons
 som7ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=PVzljDmoPVs" dataCriacao="04/02/2016"
 
-expect {${som1ID},${som2ID}} getPerfilMusical idSessao=${sessaoMark}
-expect {${som3ID},${som4ID},${som5ID}} getPerfilMusical idSessao=${sessaoSteve} 
+expect {${som2ID},${som1ID}} getPerfilMusical idSessao=${sessaoMark}
+expect {${som5ID},${som4ID},${som3ID}} getPerfilMusical idSessao=${sessaoSteve} 
 expect {${som6ID}} getPerfilMusical idSessao=${sessaoLarry}
 expect {${som7ID}} getPerfilMusical idSessao=${sessaoSergey}
 
@@ -130,7 +130,7 @@ favoritarSom idSessao=${sessaoMark} idSom=${som2ID}
 expect {${som2ID},${som5ID}} getSonsFavoritos idSessao=${sessaoMark}
 
 expect {${som2ID},${som5ID},${som2ID}} getFeedExtra idSessao=${sessaoBill}
-expect {${som2ID}} getFeedExtra idSessao=${sessaoSteve}
+expect {${som2ID},${som5ID}} getFeedExtra idSessao=${sessaoSteve}
 
 # os feeds extras e os favoritos dos demais usuarios ficam inalterados
 expect {} getFeedExtra idSessao=${sessaoLarry}

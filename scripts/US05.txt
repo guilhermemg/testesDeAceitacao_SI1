@@ -105,8 +105,8 @@ som7ID=postarSom idSessao=${sessaoSergey} link="http://www.youtube.com/watch?v=P
 som8ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="28/12/2013"
 
 # perfis musicais
-expect {${som1ID},${som2ID}} getPerfilMusical idSessao=${sessaoMark}
-expect {${som3ID},${som4ID},${som5ID}} getPerfilMusical idSessao=${sessaoSteve} 
+expect {${som2ID},${som1ID}} getPerfilMusical idSessao=${sessaoMark}
+expect {${som5ID},${som4ID},${som3ID}} getPerfilMusical idSessao=${sessaoSteve} 
 expect {${som6ID}} getPerfilMusical idSessao=${sessaoLarry}
 expect {${som7ID}} getPerfilMusical idSessao=${sessaoSergey}
 
