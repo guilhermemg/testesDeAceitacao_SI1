@@ -51,10 +51,10 @@ som4ID=postarSom idSessao=${sessaoSteve} link="https://www.youtube.com/watch?v=J
 som5ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=PVzljDmoPVs" dataCriacao="04/02/2016"
 
 # Larry posta sons
-som6ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=PVzljDmoPVs" dataCriacao="04/02/2016"
+som6ID=postarSom idSessao=${sessaoLarry} link="http://www.youtube.com/watch?v=PVzljDmoPVs" dataCriacao="04/02/2016"
 
 # Sergey posta sons
-som7ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=PVzljDmoPVs" dataCriacao="04/02/2016"
+som7ID=postarSom idSessao=${sessaoSergey} link="http://www.youtube.com/watch?v=PVzljDmoPVs" dataCriacao="04/02/2016"
 
 expect {${som2ID},${som1ID}} getPerfilMusical idSessao=${sessaoMark}
 expect {${som5ID},${som4ID},${som3ID}} getPerfilMusical idSessao=${sessaoSteve} 
