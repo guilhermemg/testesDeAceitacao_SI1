@@ -124,7 +124,7 @@ expectError "Sessão inexistente" getFontesDeSons idSessao=${sessaoBill}
 
 expectError "Sessão inválida" getVisaoDosSons idSessao=
 expectError "Sessão inválida" getVisaoDosSons idSessao=""
-expectError "Sessão inválida" getVisaoDosSons idSessao="xpto"
+expectError "Sessão inexistente" getVisaoDosSons idSessao="xpto"
 expectError "Sessão inexistente" getVisaoDosSons idSessao=${sessaoBill}
 
 #Encerrar a sessao de Mark
