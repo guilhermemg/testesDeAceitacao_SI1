@@ -87,10 +87,10 @@ seguirUsuario idSessao=${sessaoBill} login="mark"
 # ------------------------------------------------------------------------------------------------------------------------------------------
 
 # Bill favorita o som2ID, que eh de Mark
-favoritarSom idSessao=${sessaoBill} idSom=${idSom2ID}
+favoritarSom idSessao=${sessaoBill} idSom=${som2ID}
 
 # Bill favorita o som3ID, que eh de Steve
-favoritarSom idSessao=${sessaoBill} idSom=${idSom3ID}
+favoritarSom idSessao=${sessaoBill} idSom=${som3ID}
 
 # os dois sons favoritados por Bill aparecem na sua lista de sons favoritos
 expect {${som3ID},${som2ID}} getSonsFavoritos idSessao=${sessaoBill}
