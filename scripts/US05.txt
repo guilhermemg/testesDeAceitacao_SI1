@@ -38,7 +38,7 @@ expect "PRIMEIRO OS SONS COM MAIS FAVORITOS" getSecondCompositionRule
 
 #rule3="PRIMEIRO SONS DE FONTES DAS QUAIS FAVORITEI SONS NO PASSADO"
 rule3=getThirdCompositionRule
-expect "PRIMEIRO SONS DE FONTES DAS QUAIS FAVORITEI SONS NO PASSADO" getThridCompositionRule
+expect "PRIMEIRO SONS DE FONTES DAS QUAIS FAVORITEI SONS NO PASSADO" getThirdCompositionRule
 
 # entradas válidas
 
