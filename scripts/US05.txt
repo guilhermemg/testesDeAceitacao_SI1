@@ -110,7 +110,7 @@ som6ID=postarSom idSessao=${sessaoLarry} link="http://www.youtube.com/watch?v=PV
 som7ID=postarSom idSessao=${sessaoSergey} link="http://www.youtube.com/watch?v=PVzljDmoPVs" dataCriacao="04/02/2016"
 
 # Steve posta o som8ID
-som8ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="28/12/2013"
+som8ID=postarSom idSessao=${sessaoSteve} link="http://www.youtube.com/watch?v=3KsPIJK17uk" dataCriacao="28/12/2016"
 
 # perfis musicais
 expect {${som2ID},${som1ID}} getPerfilMusical idSessao=${sessaoMark}
