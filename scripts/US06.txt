@@ -69,11 +69,11 @@ adicionarUsuario idSessao=${sessaoMark} idLista=${idLista1} idUsuario=${IDSteve}
 adicionarUsuario idSessao=${sessaoMark} idLista=${idLista1} idUsuario=${IDBill}
 adicionarUsuario idSessao=${sessaoMark} idLista=${idLista1} idUsuario=${IDLarry}
 
-expect {${som8ID},${som5ID},${som4ID},${som3ID}} getSonsEmLista idSessao=${sessaoMark} idLista=${idLista1}
+expect {${som8ID},${som5ID},${som4ID},${som3ID},${som6ID}} getSonsEmLista idSessao=${sessaoMark} idLista=${idLista1}
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
-idListaGoogle=criarLista idSessao={sessaoMark} nome="listaGoogle" 
+idListaGoogle=criarLista idSessao=${sessaoMark} nome="listaGoogle" 
 
 adicionarUsuario idSessao=${sessaoMark} idLista=${idListaGoogle} idUsuario=${IDLarry}
 adicionarUsuario idSessao=${sessaoMark} idLista=${idListaGoogle} idUsuario=${IDBill}
@@ -83,7 +83,7 @@ expect {${som7ID},${som6ID}} getSonsEmLista idSessao=${sessaoMark} idLista=${idL
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
-idListaFace=criarLista idSessao={sessaoBill} nome="listaFacebook" 
+idListaFace=criarLista idSessao=${sessaoBill} nome="listaFacebook" 
 
 adicionarUsuario idSessao=${sessaoBill} idLista=${idListaFace} idUsuario=${IDMark}
 
@@ -106,7 +106,7 @@ expectError "Sessão inválida" criarLista idSessao="" nome=
 expectError "Sessão inexistente" criarLista idSessao=${sessaoBill} nome=
 
 expectError "Nome inválido" criarLista idSessao=${sessaoSteve} nome=
-expectError "Nome inválida" criarLista idSessao=${sessaoSteve} nome=""
+expectError "Nome inválido" criarLista idSessao=${sessaoSteve} nome=""
 expectError "Nome já escolhido" criarLista idSessao=${sessaoMark} nome="listaMark1"
 
 expectError "Sessão inválida" adicionarUsuario idSessao= idLista=${idLista1} idUsuario=${IDSteve}
@@ -114,8 +114,8 @@ expectError "Sessão inválida" adicionarUsuario idSessao="" idLista=${idLista1}
 expectError "Sessão inexistente" adicionarUsuario idSessao=${sessaoSergey} idLista=${idLista1} idUsuario=${IDSteve}
 
 expectError "Lista inválida" adicionarUsuario idSessao=${sessaoMark} idLista= idUsuario=${IDSteve}
-expectError "Lista inválida" adicionarUsuario idSessao="" idLista="" idUsuario=${IDSteve}
-expectError "Lista inválida" adicionarUsuario idSessao=${sessaoSergey} idLista=${idLista10} idUsuario=${IDSteve}
+expectError "Lista inválida" adicionarUsuario idSessao=${sessaoMark} idLista="" idUsuario=${IDSteve}
+expectError "Lista inválida" adicionarUsuario idSessao=${sessaoMark} idLista=${idLista10} idUsuario=${IDSteve}
 
 expectError "Usuário inválido" adicionarUsuario idSessao=${sessaoMark} idLista= idUsuario=
 expectError "Usuário inválido" adicionarUsuario idSessao=${sessaoMark} idLista="" idUsuario=
