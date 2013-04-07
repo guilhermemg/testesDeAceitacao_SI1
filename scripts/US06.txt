@@ -69,7 +69,7 @@ adicionarUsuario idSessao=${sessaoMark} idLista=${idLista1} idUsuario=${IDSteve}
 adicionarUsuario idSessao=${sessaoMark} idLista=${idLista1} idUsuario=${IDBill}
 adicionarUsuario idSessao=${sessaoMark} idLista=${idLista1} idUsuario=${IDLarry}
 
-expect {${som8ID},${som5ID},${som4ID},${som3ID},${som6ID}} getSonsEmLista idSessao=${sessaoMark} idLista=${idLista1}
+expect {${som6ID},${som8ID},${som5ID},${som4ID},${som3ID}} getSonsEmLista idSessao=${sessaoMark} idLista=${idLista1}
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
