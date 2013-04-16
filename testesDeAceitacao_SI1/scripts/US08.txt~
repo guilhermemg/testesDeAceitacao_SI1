@@ -1,6 +1,6 @@
-# User Story 07 - Recomendando fonte de sons
+# User Story 08 - Recomendando sons
 
-#    O sistema recomenda fontes de sons ao
+#    O sistema recomenda sons ao
 # usuario, de acordo com quantidade de sons 
 # favoritados em comum + quantidade de fontes
 # de som em comum.
@@ -96,10 +96,10 @@ favoritarSom idSessao=${sessaoBill} idSom=${som2ID}
 favoritarSom idSessao=${sessaoBill} idSom=${som3ID}
 
 # Larry favorita o som2ID
-favoritarSom idSessao=${sessaoLarry} idSom=${som2ID}
+favoritarSom idSessao=${sessaoBill} idSom=${som2ID}
 
 # Larry favorita o som3ID
-favoritarSom idSessao=${sessaoLarry} idSom=${som3ID}
+favoritarSom idSessao=${sessaoBill} idSom=${som3ID}
 
 # Steve favorita o som2ID
 favoritarSom idSessao=${sessaoSteve} idSom=${som2ID}
@@ -199,7 +199,7 @@ expect {${IDSergey},${IDLarry},${IDBill},${IDSteve}} getFontesDeSonsRecomendadas
 expect 2 getNumFavoritosEmComum idSessao=${sessaoSergey} idUsuario=${IDLarry}
 expect 0 getNumFontesEmComum idSessao=${sessaoSergey} idUsuario=${IDLarry}
 
-expect 0 getNumFavoritosEmComum idSessao=${sessaoSergey} idUsuario=${IDFilo}
+expect 2 getNumFavoritosEmComum idSessao=${sessaoSergey} idUsuario=${IDFilo}
 expect 0 getNumFontesEmComum idSessao=${sessaoSergey} idUsuario=${IDFilo}
 
 expect {${IDMark},${IDLarry},${IDBill},${IDSteve}} getFontesDeSonsRecomendadas idSessao=${sessaoSergey}
@@ -237,7 +237,7 @@ expectError "Sessão inexistente" getNumFavoritosEmComum idSessao=${sessaoBill} 
 
 expectError "Usuário inválido" getNumFavoritosEmComum idSessao=${sessaoSteve} idUsuario=
 expectError "Usuário inválido" getNumFavoritosEmComum idSessao=${sessaoSteve} idUsuario=""
-expectError "Usuário inválido" getNumFavoritosEmComum idSessao=${sessaoSteve} idUsuario=${IDYang}
+expectError "Usuário inexistente" getNumFavoritosEmComum idSessao=${sessaoSteve} idUsuario=${IDYang}
 
 expectError "Sessão inválida" getNumFontesEmComum idSessao= idUsuario=
 expectError "Sessão inválida" getNumFontesEmComum idSessao="" idUsuario=
@@ -245,11 +245,11 @@ expectError "Sessão inexistente" getNumFontesEmComum idSessao=${sessaoBill} idU
 
 expectError "Usuário inválido" getNumFontesEmComum idSessao=${sessaoSteve} idUsuario=
 expectError "Usuário inválido" getNumFontesEmComum idSessao=${sessaoSteve} idUsuario=""
-expectError "Usuário inválido" getNumFontesEmComum idSessao=${sessaoSteve} idUsuario=${IDYang}
+expectError "Usuário inexistente" getNumFontesEmComum idSessao=${sessaoSteve} idUsuario=${IDYang}
 
 expectError "Sessão inválida" getFontesDeSonsRecomendadas idSessao=
 expectError "Sessão inválida" getFontesDeSonsRecomendadas idSessao=""
-expectError "Sessão inválida" getFontesDeSonsRecomendadas idSessao=${sessaoYang}
+expectError "Sessão inexistente" getFontesDeSonsRecomendadas idSessao=${sessaoYang}
 
 #Encerrar a sessao de Mark
 encerrarSessao login="mark"
@@ -265,3 +265,4 @@ encerrarSessao login="filo"
 
 encerrarSistema
 quit
+
