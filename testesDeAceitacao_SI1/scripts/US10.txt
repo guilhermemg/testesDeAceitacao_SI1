@@ -130,12 +130,12 @@ expect {} getTagsDisponiveis idSessao=${sessaoBill}
 
 # Bill cria tags, apesar de nao ter postado nenhum som
 # criarTag retorna id da tag
-tag9ID=criarTag idSessao=${sessaoMark} tag="aaa"
-tag10ID=criarTag idSessao=${sessaoMark} tag="abc"
+tag9ID=criarTag idSessao=${sessaoBill} tag="aaa"
+tag10ID=criarTag idSessao=${sessaoBill} tag="abc"
 
 # verificando nomes de tags
-expect "aaa" getNomeTag idSessao=${sessaoSteve} tag=${tag9ID}
-expect "abc" getNomeTag idSessao=${sessaoSteve} tag=${tag10ID}
+expect "aaa" getNomeTag idSessao=${sessaoBill} tag=${tag9ID}
+expect "abc" getNomeTag idSessao=${sessaoBill} tag=${tag10ID}
 
 # verificando lista de tags disponiveis para os usuarios
 expect {${tag9ID},${tag10ID}} getTagsDisponiveis idSessao=${sessaoBill}
@@ -186,8 +186,8 @@ expectError "Sessão inválida" getNomeTag idSessao="" tag=
 expectError "Sessão inválida" getNomeTag idSessao=${sessaoBill} tag=
 
 expectError "Tag inválida" getNomeTag idSessao=${sessaoMark} tag=
-expectError "Tag inválida" getNomeTag idSessao="" tag=""
-expectError "Tag inexistente" getNomeTag idSessao=${sessaoBill} tag=${tag1ID}
+expectError "Tag inválida" getNomeTag idSessao=${sessaoMark} tag=""
+expectError "Tag inexistente" getNomeTag idSessao=${sessaoMark} tag=${tag1ID}
 
 expectError "Sessão inválida" getTagsDisponiveis idSessao=
 expectError "Sessão inválida" getTagsDisponiveis idSessao=""
