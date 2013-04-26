@@ -123,7 +123,7 @@ expect "cee" getNomeTag idSessao=${sessaoMark} tag=${tag8ID}
 
 # verificando lista de tags disponiveis para os usuarios
 expect {${tag1ID},${tag2ID},${tag3ID}} getTagsDisponiveis idSessao=${sessaoSteve}
-expect {${tag5ID},${tag6ID},${tag7ID},${tag8ID},} getTagsDisponiveis idSessao=${sessaoMark}
+expect {${tag5ID},${tag6ID},${tag7ID},${tag8ID}} getTagsDisponiveis idSessao=${sessaoMark}
 expect {} getTagsDisponiveis idSessao=${sessaoBill}
 
 #----------------------------------------------------------------------------------------------------------------------------------
@@ -139,7 +139,7 @@ expect "abc" getNomeTag idSessao=${sessaoSteve} tag=${tag10ID}
 
 # verificando lista de tags disponiveis para os usuarios
 expect {${tag9ID},${tag10ID}} getTagsDisponiveis idSessao=${sessaoBill}
-expect {${tag4ID},${tag5ID},${tag6ID},${tag7ID},${tag8ID}} getTagsDisponiveis idSessao=${sessaoMark}
+expect {${tag5ID},${tag6ID},${tag7ID},${tag8ID}} getTagsDisponiveis idSessao=${sessaoMark}
 expect {${tag1ID},${tag2ID},${tag3ID}} getTagsDisponiveis idSessao=${sessaoSteve}
 
 #----------------------------------------------------------------------------------------------------------------------------------
